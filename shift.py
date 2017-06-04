@@ -74,11 +74,9 @@ time.sleep(slow_time)
 setArray('10000001')
 time.sleep(slow_time)
 for i in range(9):
-    print i
     setNumber(i)
     time.sleep(quick_time)
 for i in range(8):
-    print 7 - i
     setNumber(8 - i)
     time.sleep(quick_time)
 
