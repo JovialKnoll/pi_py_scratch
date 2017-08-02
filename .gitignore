@@ -1,22 +1,4 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Gist
- @JovialKnoll
- Sign out
- Unwatch 2
-  Star 1
-  Fork 0 JovialKnoll/monsters
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Settings Insights 
-Branch: master Find file Copy pathmonsters/.gitignore
-eb163bd  19 days ago
-@JovialKnoll JovialKnoll gitignore update
-1 contributor
-RawBlameHistory    
-138 lines (111 sloc)  1.41 KB
+
 # Compiled source
 *.com
 *.class
