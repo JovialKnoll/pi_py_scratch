@@ -1,11 +1,15 @@
 import sys, time
 import RPi.GPIO as gpio
 
+REVERSE = False
+
 gpio.setmode(gpio.BCM)
 gpio.setwarnings(False)
 
 single_led = 21
 gpio.setup(single_led, gpio.OUT)
+
+REVERSE = True
 
 def blinkSingle():
     gpio.output(single_led, gpio.HIGH)
@@ -32,7 +36,10 @@ gpio.output(latch, gpio.LOW)
 def getIntArray(in_string):
     return [int(x) for x in in_string]
 def setArray(in_string):
-    for i in getIntArray(in_string):
+    right_string = in_string
+    if REVERSE:
+        right_string = reversed(in_string)
+    for i in getIntArray(right_string):
         if i is 0:
             gpio.output(data, gpio.LOW)
         else:
@@ -53,6 +60,12 @@ def setNumber(num):
 
 slow_time = 0.5
 quick_time = 0.1
+setArray('10000000')
+time.sleep(slow_time)
+setArray('11000000')
+time.sleep(slow_time)
+setArray('11100000')
+time.sleep(slow_time)
 setArray('00000000')
 time.sleep(slow_time)
 setArray('10000001')
