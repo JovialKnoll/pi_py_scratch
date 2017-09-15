@@ -39,6 +39,7 @@ def setArray(in_string):
     right_string = in_string
     if REVERSE:
         right_string = reversed(in_string)
+    gpio.output(latch, gpio.LOW)
     for i in getIntArray(right_string):
         if i is 0:
             gpio.output(data, gpio.LOW)
@@ -49,9 +50,7 @@ def setArray(in_string):
         time.sleep(small_time)
         gpio.output(clock, gpio.LOW)
         gpio.output(data, gpio.LOW)#clear
-        gpio.output(latch, gpio.HIGH)
-        time.sleep(small_time)
-        gpio.output(latch, gpio.LOW)
+    gpio.output(latch, gpio.HIGH)
 def setNumber(num):
     # 0 <= num <= 8
     s = ''.join(['1' for n in range(num)])
