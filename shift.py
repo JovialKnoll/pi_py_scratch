@@ -45,9 +45,7 @@ def setArray(in_string):
             gpio.output(data, gpio.LOW)
         else:
             gpio.output(data, gpio.HIGH)
-        time.sleep(small_time)
         gpio.output(clock, gpio.HIGH)
-        time.sleep(small_time)
         gpio.output(clock, gpio.LOW)
         gpio.output(data, gpio.LOW)#clear
     gpio.output(latch, gpio.HIGH)
