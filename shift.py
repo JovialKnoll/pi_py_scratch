@@ -1,4 +1,8 @@
-import sys, time
+#!/usr/bin/env python
+
+import sys
+import time
+
 import RPi.GPIO as gpio
 
 REVERSE = False
@@ -57,7 +61,7 @@ def setNumber(num):
 
 slow_time = 0.5
 quick_time = 0.1
-setArray('10000000')
+'''setArray('10000000')
 time.sleep(slow_time)
 setArray('11000000')
 time.sleep(slow_time)
@@ -82,7 +86,7 @@ time.sleep(slow_time)
 setArray('01000010')
 time.sleep(slow_time)
 setArray('10000001')
-time.sleep(slow_time)
+time.sleep(slow_time)'''
 for i in range(9):
     setNumber(i)
     time.sleep(quick_time)
