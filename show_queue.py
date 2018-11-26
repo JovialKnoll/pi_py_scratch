@@ -40,8 +40,8 @@ def setArray(in_string):
 
 def setNumber(num):
     # 0 <= num <= 8
-    s = ''.join(['1' for n in range(num)])
-    s += ''.join(['0' for n in range(8 - num)])
+    s = ''.join(['1' for n in range(min(num, 8))])
+    s += ''.join(['0' for n in range(8 - min(num, 8))])
     setArray(s)
 
 command = 'lpstat -o HP_Deskjet_D1520 | wc -l'
