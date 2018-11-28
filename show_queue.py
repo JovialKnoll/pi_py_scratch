@@ -2,6 +2,7 @@
 
 import sys
 import subprocess
+import time
 import RPi.GPIO as gpio
 
 # gpio setup
@@ -48,8 +49,9 @@ def getQueueLength():
     response = subprocess.check_output(command, shell=True)
     return int(response)
 
-# loop or something here
-setNumber(getQueueLength())
+while True:
+    setNumber(getQueueLength())
+    time.sleep(5)
 
 gpio.cleanup()
 sys.exit()
