@@ -51,7 +51,7 @@ def getQueueLength():
 
 while True:
     setNumber(getQueueLength())
-    time.sleep(5)
+    time.sleep(1)
 
 gpio.cleanup()
 sys.exit()
