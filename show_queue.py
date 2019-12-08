@@ -11,12 +11,9 @@ gpio.setwarnings(False)
 data = 13
 latch = 19
 clock = 26
-gpio.setup(data, gpio.OUT)
-gpio.output(data, gpio.LOW)
-gpio.setup(clock, gpio.OUT)
-gpio.output(clock, gpio.LOW)
-gpio.setup(latch, gpio.OUT)
-gpio.output(latch, gpio.LOW)
+gpio.setup(data, gpio.OUT, initial=gpio.LOW)
+gpio.setup(clock, gpio.OUT, initial=gpio.LOW)
+gpio.setup(latch, gpio.OUT, initial=gpio.LOW)
 REVERSE = True
 
 def getIntArray(in_string):

@@ -1,21 +1,26 @@
+#!/usr/bin/env python
+
 import sys
 import time
-import RPi.GPIO as GPIO
+import RPi.GPIO as gpio
 
+# gpio setup
+gpio.setmode(gpio.BCM)
+gpio.setwarnings(False)
 set = 20
 test = 21
-
 led_r = 25
 led_g = 12
 led_b = 16
 buzzer = 5
-
-GPIO.setmode(GPIO.BCM)
+gpio.setup(led_r, gpio.OUT, initial=gpio.LOW)
+gpio.setup(led_g, gpio.OUT, initial=gpio.LOW)
+gpio.setup(led_b, gpio.OUT, initial=gpio.LOW)
 
 def discharge():
-    GPIO.setup(set, GPIO.IN)
-    GPIO.setup(test, GPIO.OUT)
-    GPIO.output(test, False)
+    gpio.setup(set, gpio.IN)
+    gpio.setup(test, gpio.OUT)
+    gpio.output(test, False)
     time.sleep(0.001)
 
 def get_value(dt):
@@ -24,11 +29,11 @@ def get_value(dt):
     return result
 
 def charge_time():
-    GPIO.setup(test, GPIO.IN)
-    GPIO.setup(set, GPIO.OUT)
+    gpio.setup(test, gpio.IN)
+    gpio.setup(set, gpio.OUT)
     start = time.time()
-    GPIO.output(set, True)
-    while not GPIO.input(test):
+    gpio.output(set, True)
+    while not gpio.input(test):
         pass
     return get_value(time.time() - start)
 
@@ -43,6 +48,6 @@ try:
 except KeyboardInterrupt:
     pass
 finally:
-    GPIO.cleanup()
+    gpio.cleanup()
 
 sys.exit()
