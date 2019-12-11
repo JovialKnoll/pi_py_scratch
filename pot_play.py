@@ -3,6 +3,7 @@
 import sys
 import time
 import RPi.GPIO as gpio
+from collections import deque
 
 # gpio setup
 gpio.setmode(gpio.BCM)
@@ -43,9 +44,15 @@ def analog_read():
     discharge()
     return charge_time()
 
+readings = deque([analog_read() for x in range(8)], 8)
+
+def summed_read():
+    readings.append(analog_read())
+    return sum(readings)
+
 try:
     while True:
-        print(analog_read())
+        print(summed_read())
         time.sleep(.1)
 except KeyboardInterrupt:
     pass
