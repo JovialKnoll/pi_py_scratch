@@ -26,9 +26,9 @@ def discharge():
 
 def get_value(dt):
     result = dt * 100000
-    result -= 5
-    result = max(result, 0)
-    result = min(result, 34)
+    #result -= 5
+    #result = max(result, 0)
+    #result = min(result, 34)
     return result
 
 def charge_time():
@@ -48,7 +48,7 @@ readings = deque([analog_read() for x in range(8)], 8)
 
 def summed_read():
     readings.append(analog_read())
-    return sum(readings)
+    return sum(readings)/40
 
 try:
     while True:
