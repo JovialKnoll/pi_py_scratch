@@ -18,18 +18,13 @@ gpio.setup(led_r, gpio.OUT, initial=gpio.LOW)
 gpio.setup(led_g, gpio.OUT, initial=gpio.LOW)
 gpio.setup(led_b, gpio.OUT, initial=gpio.LOW)
 
+readings_number = 16
+
 def discharge():
     gpio.setup(send, gpio.IN)
     gpio.setup(test, gpio.OUT)
     gpio.output(test, gpio.LOW)
     time.sleep(0.001)
-
-def get_value(dt):
-    result = dt * 100000
-    #result -= 5
-    #result = max(result, 0)
-    #result = min(result, 34)
-    return result
 
 def charge_time():
     gpio.setup(test, gpio.IN)
@@ -38,17 +33,21 @@ def charge_time():
     gpio.output(send, gpio.HIGH)
     while gpio.input(test) == gpio.LOW:
         pass
-    return get_value(time.time() - start)
+    return time.time() - start
 
 def analog_read():
     discharge()
     return charge_time()
 
-readings = deque([analog_read() for x in range(8)], 8)
+readings = deque([analog_read() for x in range(readings_number)], readings_number)
+readings_sum = sum(readings)
 
 def summed_read():
+    readings_sum -= readings.popleft()
     readings.append(analog_read())
-    return sum(readings)/40
+    readings_sum += readings[-1]
+    # other processing here
+    return readings_sum
 
 try:
     while True:
