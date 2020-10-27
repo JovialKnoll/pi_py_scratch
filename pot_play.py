@@ -43,6 +43,7 @@ readings = deque([analog_read() for x in range(READINGS_NUMBER)], READINGS_NUMBE
 readings_sum = sum(readings)
 
 def summed_read():
+    global readings, readings_sum
     readings_sum -= readings.popleft()
     readings.append(analog_read())
     readings_sum += readings[-1]
