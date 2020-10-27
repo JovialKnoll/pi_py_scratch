@@ -13,12 +13,15 @@ TEST = 21
 LED_R = 25
 LED_G = 12
 LED_B = 16
-buzzer = 18
+BUZZER = 18
+READINGS_NUMBER = 16
+
 GPIO.setup(LED_R, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(LED_G, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(LED_B, GPIO.OUT, initial=GPIO.LOW)
 
-readings_number = 16
+readings = deque([analog_read() for x in range(READINGS_NUMBER)], READINGS_NUMBER)
+readings_sum = sum(readings)
 
 def discharge():
     GPIO.setup(SEND, GPIO.IN)
@@ -47,9 +50,6 @@ def summed_read():
     return readings_sum
 
 def main():
-    readings = deque([analog_read() for x in range(readings_number)], readings_number)
-    readings_sum = sum(readings)
-
     try:
         while True:
             print(summed_read())
