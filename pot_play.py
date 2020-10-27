@@ -20,9 +20,6 @@ GPIO.setup(LED_R, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(LED_G, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(LED_B, GPIO.OUT, initial=GPIO.LOW)
 
-readings = deque([analog_read() for x in range(READINGS_NUMBER)], READINGS_NUMBER)
-readings_sum = sum(readings)
-
 def discharge():
     GPIO.setup(SEND, GPIO.IN)
     GPIO.setup(TEST, GPIO.OUT)
@@ -41,6 +38,9 @@ def charge_time():
 def analog_read():
     discharge()
     return charge_time()
+
+readings = deque([analog_read() for x in range(READINGS_NUMBER)], READINGS_NUMBER)
+readings_sum = sum(readings)
 
 def summed_read():
     readings_sum -= readings.popleft()
