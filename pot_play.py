@@ -39,9 +39,6 @@ def analog_read():
     discharge()
     return charge_time()
 
-readings = deque([analog_read() for x in range(readings_number)], readings_number)
-readings_sum = sum(readings)
-
 def summed_read():
     readings_sum -= readings.popleft()
     readings.append(analog_read())
@@ -49,13 +46,19 @@ def summed_read():
     # other processing here
     return readings_sum
 
-try:
-    while True:
-        print(summed_read())
-        time.sleep(.1)
-except KeyboardInterrupt:
-    pass
-finally:
-    gpio.cleanup()
+def main():
+    readings = deque([analog_read() for x in range(readings_number)], readings_number)
+    readings_sum = sum(readings)
 
+    try:
+        while True:
+            print(summed_read())
+            time.sleep(.1)
+    except KeyboardInterrupt:
+        pass
+
+if __name__ == '__main__':
+    main()
+
+gpio.cleanup()
 sys.exit()
