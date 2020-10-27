@@ -2,36 +2,36 @@
 
 import sys
 import time
-import RPi.GPIO as gpio
+import RPi.GPIO as GPIO
 from collections import deque
 
 # gpio setup
-gpio.setmode(gpio.BCM)
-gpio.setwarnings(False)
-send = 20
-test = 21
-led_r = 25
-led_g = 12
-led_b = 16
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+SEND = 20
+TEST = 21
+LED_R = 25
+LED_G = 12
+LED_B = 16
 buzzer = 18
-gpio.setup(led_r, gpio.OUT, initial=gpio.LOW)
-gpio.setup(led_g, gpio.OUT, initial=gpio.LOW)
-gpio.setup(led_b, gpio.OUT, initial=gpio.LOW)
+GPIO.setup(LED_R, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(LED_G, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(LED_B, GPIO.OUT, initial=GPIO.LOW)
 
 readings_number = 16
 
 def discharge():
-    gpio.setup(send, gpio.IN)
-    gpio.setup(test, gpio.OUT)
-    gpio.output(test, gpio.LOW)
+    GPIO.setup(SEND, GPIO.IN)
+    GPIO.setup(TEST, GPIO.OUT)
+    GPIO.output(TEST, GPIO.LOW)
     time.sleep(0.001)
 
 def charge_time():
-    gpio.setup(test, gpio.IN)
-    gpio.setup(send, gpio.OUT)
+    GPIO.setup(TEST, GPIO.IN)
+    GPIO.setup(SEND, GPIO.OUT)
     start = time.time()
-    gpio.output(send, gpio.HIGH)
-    while gpio.input(test) == gpio.LOW:
+    GPIO.output(SEND, GPIO.HIGH)
+    while GPIO.input(TEST) == GPIO.LOW:
         pass
     return time.time() - start
 
@@ -60,5 +60,5 @@ def main():
 if __name__ == '__main__':
     main()
 
-gpio.cleanup()
+GPIO.cleanup()
 sys.exit()
