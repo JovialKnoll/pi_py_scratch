@@ -43,15 +43,6 @@ def analog_read():
     discharge()
     return charge_time()
 
-def get_level(reading):
-    level = min(
-        max(reading - SMALLEST_SUM, 0) * (MAX_LEVEL + 1) / (LARGEST_SUM - SMALLEST_SUM),
-        MAX_LEVEL
-    )
-    if (REVERSE_LEVEL):
-        level = MAX_LEVEL - level
-    return level
-
 readings = deque([analog_read() for x in range(READINGS_NUMBER)], READINGS_NUMBER)
 readings_sum = sum(readings)
 
@@ -64,20 +55,55 @@ def summed_read():
     # get a number from 0-7?
     return readings_sum
 
-#OFF
-#RED
-#RED GREEN
-#GREEN
-#GREEN BLUE
-#BLUE
-#RED BLUE
-#RED GREEN BLUE / pulse
+def get_level(reading):
+    level = min(
+        max(reading - SMALLEST_SUM, 0) * (MAX_LEVEL + 1) / (LARGEST_SUM - SMALLEST_SUM),
+        MAX_LEVEL
+    )
+    if (REVERSE_LEVEL):
+        level = MAX_LEVEL - level
+    return level
+
+def set_lights(level):
+    if level == 0:
+        GPIO.output(LED_R, GPIO.LOW)
+        GPIO.output(LED_G, GPIO.LOW)
+        GPIO.output(LED_B, GPIO.LOW)
+    elif level == 1:
+        GPIO.output(LED_R, GPIO.HIGH)
+        GPIO.output(LED_G, GPIO.LOW)
+        GPIO.output(LED_B, GPIO.LOW)
+    elif level == 2:
+        GPIO.output(LED_R, GPIO.HIGH)
+        GPIO.output(LED_G, GPIO.HIGH)
+        GPIO.output(LED_B, GPIO.LOW)
+    elif level == 3:
+        GPIO.output(LED_R, GPIO.LOW)
+        GPIO.output(LED_G, GPIO.HIGH)
+        GPIO.output(LED_B, GPIO.LOW)
+    elif level == 4:
+        GPIO.output(LED_R, GPIO.LOW)
+        GPIO.output(LED_G, GPIO.HIGH)
+        GPIO.output(LED_B, GPIO.HIGH)
+    elif level == 5:
+        GPIO.output(LED_R, GPIO.LOW)
+        GPIO.output(LED_G, GPIO.LOW)
+        GPIO.output(LED_B, GPIO.HIGH)
+    elif level == 6:
+        GPIO.output(LED_R, GPIO.HIGH)
+        GPIO.output(LED_G, GPIO.LOW)
+        GPIO.output(LED_B, GPIO.HIGH)
+    elif level == 7:
+        GPIO.output(LED_R, GPIO.HIGH)
+        GPIO.output(LED_G, GPIO.HIGH)
+        GPIO.output(LED_B, GPIO.HIGH)
 
 def main():
     try:
         while True:
             reading = summed_read()
             level = get_level(reading)
+            set_lights(level)
             print(level)
             time.sleep(.1)
     except KeyboardInterrupt:
