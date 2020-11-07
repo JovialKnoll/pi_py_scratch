@@ -65,35 +65,35 @@ def get_level(reading):
     return level
 
 def set_lights(level):
-    if level == 0:
+    if level < 1:
         GPIO.output(LED_R, GPIO.LOW)
         GPIO.output(LED_G, GPIO.LOW)
         GPIO.output(LED_B, GPIO.LOW)
-    elif level == 1:
+    elif level < 2:
         GPIO.output(LED_R, GPIO.HIGH)
         GPIO.output(LED_G, GPIO.LOW)
         GPIO.output(LED_B, GPIO.LOW)
-    elif level == 2:
+    elif level < 3:
         GPIO.output(LED_R, GPIO.HIGH)
         GPIO.output(LED_G, GPIO.HIGH)
         GPIO.output(LED_B, GPIO.LOW)
-    elif level == 3:
+    elif level < 4:
         GPIO.output(LED_R, GPIO.LOW)
         GPIO.output(LED_G, GPIO.HIGH)
         GPIO.output(LED_B, GPIO.LOW)
-    elif level == 4:
+    elif level < 5:
         GPIO.output(LED_R, GPIO.LOW)
         GPIO.output(LED_G, GPIO.HIGH)
         GPIO.output(LED_B, GPIO.HIGH)
-    elif level == 5:
+    elif level < 6:
         GPIO.output(LED_R, GPIO.LOW)
         GPIO.output(LED_G, GPIO.LOW)
         GPIO.output(LED_B, GPIO.HIGH)
-    elif level == 6:
+    elif level < 7:
         GPIO.output(LED_R, GPIO.HIGH)
         GPIO.output(LED_G, GPIO.LOW)
         GPIO.output(LED_B, GPIO.HIGH)
-    elif level == 7:
+    elif level < 8:
         GPIO.output(LED_R, GPIO.HIGH)
         GPIO.output(LED_G, GPIO.HIGH)
         GPIO.output(LED_B, GPIO.HIGH)
