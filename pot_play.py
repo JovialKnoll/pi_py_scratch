@@ -15,6 +15,9 @@ LED_G = 12
 LED_B = 16
 BUZZER = 18
 READINGS_NUMBER = 8
+MAX_LEVEL = 7
+LARGEST_SUM = 0.0031
+SMALLEST_SUM = 0.0005
 
 GPIO.setup(LED_R, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(LED_G, GPIO.OUT, initial=GPIO.LOW)
@@ -39,6 +42,12 @@ def analog_read():
     discharge()
     return charge_time()
 
+def get_level(summed_read):
+    return min(
+        max(summed_read - SMALLEST_SUM, 0) * (MAX_LEVEL + 1) / (LARGEST_SUM - SMALLEST_SUM),
+        MAX_LEVEL
+    )
+
 readings = deque([analog_read() for x in range(READINGS_NUMBER)], READINGS_NUMBER)
 readings_sum = sum(readings)
 
@@ -51,10 +60,20 @@ def summed_read():
     # get a number from 0-7?
     return readings_sum
 
+#OFF
+#RED
+#RED GREEN
+#GREEN
+#GREEN BLUE
+#BLUE
+#RED BLUE
+#RED GREEN BLUE / pulse
+
 def main():
     try:
         while True:
-            print(summed_read())
+            level = get_level(summed_read())
+            print(level)
             time.sleep(.1)
     except KeyboardInterrupt:
         pass
