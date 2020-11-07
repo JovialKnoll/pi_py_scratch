@@ -14,7 +14,7 @@ LED_R = 25
 LED_G = 12
 LED_B = 16
 BUZZER = 18
-READINGS_NUMBER = 16
+READINGS_NUMBER = 8
 
 GPIO.setup(LED_R, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(LED_G, GPIO.OUT, initial=GPIO.LOW)
@@ -48,6 +48,7 @@ def summed_read():
     readings.append(analog_read())
     readings_sum += readings[-1]
     # other processing here
+    # get a number from 0-7?
     return readings_sum
 
 def main():
