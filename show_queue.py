@@ -20,7 +20,7 @@ def getIntArray(in_string):
     return [int(x) for x in in_string]
 
 def getIOArray(in_string):
-    return [gpio.LOW if i is 0 else gpio.HIGH for i in getIntArray(in_string)]
+    return [gpio.LOW if i == 0 else gpio.HIGH for i in getIntArray(in_string)]
 
 def setArray(in_string):
     right_string = in_string
